@@ -1,17 +1,19 @@
-import AddToBasket from "@/app/components/pages/addToBasket";
-import { Button } from "@/components/ui/button";
-import { urlFor } from "@/sanity/lib/image";
-import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
-import { PortableText } from "next-sanity";
-import Image from "next/image";
-import { notFound } from "next/navigation";
+import { imageUrl } from '@/lib/imageUrl';
+import { getProductBySlug } from '@/sanity/lib/products/getProductBySlug';
+import { PortableText } from 'next-sanity';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import React from 'react';
 
-async function Productpage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+const ProductPage = async ({ params }: { params: Promise<{ slug: string }>}) => {
+  const { slug } = await params;
+
+  // Await the product fetching
   const product = await getProductBySlug(slug);
 
+  // Check if the product exists
   if (!product) {
-    return notFound();
+    return "Page not found";
   }
 
   const isOutOfStock = product.stock != null && product.stock <= 0;
@@ -20,53 +22,43 @@ async function Productpage({ params }: { params: { slug: string } }) {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
-          className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${
-            isOutOfStock ? "opacity-50" : ""
+          className={`relative aspect-square w-full h-full overflow-hidden rounded-lg ${
+            isOutOfStock ? 'opacity-50' : ''
           }`}
         >
           {product.image && (
             <Image
-              src={urlFor(
-                Array.isArray(product.image) ? product.image[0] : product.image
-              ).url()}
-              alt={product.name || "Product Image"}
-              loading="lazy"
+              className="object-contain transition-transform duration-300 group-hover:scale-105"
+              src={imageUrl(product.image).url()}
+              alt={product.name ?? 'Product image'}
               fill
-              sizes="100%"
-              className="object-contain transition-transform duration-300 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           )}
+
           {isOutOfStock && (
-            <div className=" absolute inset-0 flex items-center justify-center
-             bg-black bg-opacity-50">
-                <span className=" text-white font-bold text-lg">Out of Stock</span>
-             </div>
-  )}
-        </div>
-        <div className=" flex flex-col justify-between">
-            <div>
-                <h1 className=" text-3xl font-bold mb-4">{product.name}</h1>
-                <div className=" text-xl font-semibold mb-4">
-                    PKR{product.price?.toFixed(2)}
-                </div>
-
-                <div className=" prose max-w-none mb-6">
-                    {Array.isArray(product.description)&&(
-                        <PortableText value={product.description}/>
-                    )}
-                </div>
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <span className="text-white font-bold text-lg">Out Of Stock</span>
             </div>
-            {/* add to cart button */}
-            <div className=" mt-6">
-              <AddToBasket product={product} disabled={isOutOfStock}/>
-
-            </div>
-
+          )}
         </div>
 
+        <div className="flex flex-col justify-between">
+          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+
+          <div className="text-xl font-semibold mb-4">
+            ${product.price?.toFixed(2)}
+          </div>
+
+          <div className="prose max-w-none mb-6">
+            {Array.isArray(product.description) && (
+              <PortableText value={product.description} />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default Productpage;
+export default ProductPage;
