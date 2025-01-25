@@ -54,7 +54,7 @@ function Page() {
             <p className="font-mono text-lg text-green-600">{orderNumber}</p>
           </div>
         ) : (
-          <p className="mt-4 text-red-600">No order number found!</p>
+          <p className="mt-4 text-red-600">No Order Number Found!</p>
         )}
 
         {/* Confirmation Message */}
