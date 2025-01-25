@@ -38,19 +38,18 @@ export function CategorySelectorComponent({ categories }: CategorySelectorProps)
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="  w-full max-w-xs flex items-center justify-between rounded-lg border border-gray-300 bg-gradient-to-r from-purple-700 to-black
-             text-white px-4 py-2 text-sm font-bold shadow-md transition-all hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 hover:text-gray-100"
+          className="w-full flex items-center p-3 m-2 justify-between rounded-lg border border-gray-300 bg-gradient-to-r from-purple-700 to-black text-white px-4 py-2 text-sm font-semibold shadow-lg transition-all hover:shadow-2xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:text-gray-100"
         >
           {value
             ? categories.find((category) => category._id === value)?.title
             : "Filter by Category"}
-          <ChevronsUpDown className="ml-2 h-5 w-5 opacity-70  " />
+          <ChevronsUpDown className="ml-2 h-5 w-5 opacity-70" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
         side="bottom"
         align="start"
-        className="z-10 w-[250px]  bg-white border border-gray-300 rounded-lg shadow-lg transition-transform duration-300 ease-in-out"
+        className="z-10 w-[250px] bg-white border border-gray-300 rounded-lg shadow-lg transition-transform duration-300 ease-in-out"
       >
         <Command>
           <CommandInput
