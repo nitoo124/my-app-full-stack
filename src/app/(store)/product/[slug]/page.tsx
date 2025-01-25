@@ -6,8 +6,8 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-async function Productpage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+async function Productpage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const product = await getProductBySlug(slug);
 
   if (!product) {
