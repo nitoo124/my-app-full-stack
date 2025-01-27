@@ -8,7 +8,7 @@ async function page() {
   const Products:Products[] = await getAllProducts()
   const categories = await getAllCategories();
   return (
-    <div className=' max-w-screen-xl mx-auto h-screen'>
+    <div className=' max-w-screen-xl mx-auto'>
       <MegaSaleBanner/>
 
   <Productview products={Products} categories={categories}/>
