@@ -20,7 +20,7 @@ function Header() {
   );
 
   return (
-    <header className="bg-white shadow-lg">
+    <header className="bg-white shadow-lg mb-10">
       {/* Wrapper */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap">
         {/* Logo */}

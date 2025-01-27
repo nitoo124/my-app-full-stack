@@ -30,7 +30,7 @@ function AddToBasket({ product, disabled }: AddToBasketProps) {
       {/* Remove Item Button */}
       <button
         onClick={() => removeItem(product._id)}
-        className="w-10 h-10 rounded-full flex items-center font-semibold text-2xl justify-center bg-red-500 text-white transition-colors duration-200 hover:bg-red-600 disabled:bg-gray-300"
+        className="w-6 h-6 sm:w-10 sm:h-10 rounded-full flex items-center font-semibold text-2xl justify-center bg-red-500 text-white transition-colors duration-200 hover:bg-red-600 disabled:bg-gray-300"
         disabled={disabled}
       >
         -
@@ -42,7 +42,7 @@ function AddToBasket({ product, disabled }: AddToBasketProps) {
       {/* Add Item Button */}
       <button
         onClick={() => addItem(product)}
-        className="w-10 h-10 rounded-full text-2xl font-semibold flex items-center justify-center bg-green-500 text-white transition-colors duration-200 hover:bg-green-600 disabled:bg-gray-300"
+        className=" w-6 h-6 sm:w-10 sm:h-10 rounded-full text-2xl font-semibold flex items-center justify-center bg-green-500 text-white transition-colors duration-200 hover:bg-green-600 disabled:bg-gray-300"
         disabled={disabled}
       >
         +

@@ -29,8 +29,8 @@ function Cartpage() {
 
   if (groupedItems.length === 0) {
     return (
-      <div className="container mx-auto p-8 flex flex-col items-center justify-center min-h-[60vh] bg-gray-100 rounded-lg shadow-md">
-        <h1 className="text-3xl font-extrabold mb-4 text-gray-800">Your Cart</h1>
+      <div className="h-full container mx-auto  flex mt-12 items-center justify-center bg-gray-100 rounded-lg shadow-md">
+        <h1 className="text-4xl font-bold mb-4 text-gray-900">Your Cart</h1>
         <p className="text-gray-600 text-lg italic">Looks like your cart is empty!</p>
       </div>
     );
@@ -60,20 +60,20 @@ function Cartpage() {
   };
 
   return (
-    <div className="container mx-auto p-8 max-w-6xl bg-gray-50 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Your Cart</h1>
+    <div className="container mx-auto p-8 max-w-6xl bg-white rounded-2xl shadow-lg">
+      <h1 className="text-4xl font-extrabold mb-6 text-gray-900">Your Cart</h1>
       <div className="flex flex-col lg:flex-row gap-10">
         <div className="flex-grow">
           {groupedItems?.map((item) => (
             <div
               key={item.product._id}
-              className="mb-6 border border-gray-300 p-4 rounded-lg flex items-center justify-between bg-white shadow-sm hover:shadow-md transition-shadow"
+              className="mb-6 border border-gray-200 p-6 rounded-lg flex items-center justify-between bg-gray-50 shadow-md hover:shadow-lg transition-shadow"
             >
               <div
-                className="flex items-center gap-4 cursor-pointer"
+                className="flex items-center gap-6 cursor-pointer"
                 onClick={() => router.push(`/product/${item.product.slug?.current}`)}
               >
-                <div className="w-24 h-24 overflow-hidden rounded-md">
+                <div className="p-3 overflow-hidden rounded-lg bg-gray-100">
                   {item.product.image && (
                     <Image
                       src={urlFor(item.product.image).url()}
@@ -81,15 +81,15 @@ function Cartpage() {
                       width={96}
                       height={96}
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-md"
                     />
                   )}
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-800">
+                  <h2 className="text-xl font-semibold text-gray-800">
                     {item.product.name}
                   </h2>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 mt-1">
                     Price: <span className="font-bold">${((item.product.price ?? 0) * item.quantity).toFixed(2)}</span>
                   </p>
                 </div>
@@ -101,20 +101,16 @@ function Cartpage() {
           ))}
         </div>
 
-        <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-2xl font-semibold mb-4 text-gray-800">Order Summary</h3>
-          <div className="space-y-2">
-            <p className="flex justify-between text-gray-700">
+        <div className="w-full lg:w-1/3 bg-gray-50 p-8 rounded-lg shadow-md">
+          <h3 className="text-2xl font-bold mb-6 text-gray-900">Order Summary</h3>
+          <div className="space-y-4">
+            <p className="flex justify-between text-gray-700 text-lg">
               <span>Items:</span>
-              <span>
-                {groupedItems.reduce((total, item) => total + item.quantity, 0)}
-              </span>
+              <span>{groupedItems.reduce((total, item) => total + item.quantity, 0)}</span>
             </p>
-            <p className="flex justify-between text-2xl font-bold border-t pt-4 text-gray-800">
+            <p className="flex justify-between text-2xl font-bold border-t pt-4 text-gray-900">
               <span>Total:</span>
-              <span>
-                $ {useBasketStore.getState().getTotalPrice().toFixed(2)}
-              </span>
+              <span>$ {useBasketStore.getState().getTotalPrice().toFixed(2)}</span>
             </p>
           </div>
 
