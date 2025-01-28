@@ -82,7 +82,7 @@ function Cartpage() {
                         width={96}
                         height={96}
                         loading="lazy"
-                        className="w-full h-full object-cover rounded-md"
+                        className="w-full h-full object-cover rounded-md flex-1"
                       />
                     )}
                   </div>
