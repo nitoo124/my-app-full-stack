@@ -10,7 +10,7 @@ function ProductCard({ product }: { product: Products }) {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col rounded-lg border border-gray-200 shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:-translate-y-1 overflow-hidden ${
+      className={`group flex flex-col rounded-lg border  border-gray-200 shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:-translate-y-1 overflow-hidden ${
         isOutOfStock ? 'opacity-50 pointer-events-none' : ''
       }`}
     >
