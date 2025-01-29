@@ -6,6 +6,7 @@ import Stripe from "stripe";
 import { Metadata } from "../../../../action/createCheckoutSession";
 import { product } from "@/sanity/schemaTypes/products";
 import { backendClient } from "@/sanity/lib/backendClient";
+import { order } from "@/sanity/schemaTypes/order";
 
 
 
@@ -107,7 +108,7 @@ async function createOrderInSanity(session:Stripe.Checkout.Session) {
         amountDiscount: total_details?.amount_discount
         ? total_details.amount_discount/100
         : 0,
-        products :sanityProduct,
+        product:sanityProduct,
         totalPrice : amount_total ? amount_total/100 : 0,
         orderStatus : "paid",
         orderDate: new Date().toISOString()

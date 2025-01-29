@@ -44,24 +44,23 @@ export const order = defineType({
       validation: (Rule) => Rule.required().email(), // Added email validation
     }),
     defineField({
-      name: "product",
+      name: "products",
       type: "array",
-      title: "Product",
+      title: "Products",
       of: [
         defineArrayMember({
           type: "object",
           fields: [
             defineField({
-              name: "productRef",
-              title: "Product Reference",
+              name: "product",
+              title: "Product Bought",
               type: "reference",
               to: [{ type: "products" }],
             }),
             defineField({
-              name: "quantityPurchased",
+              name: "quantity",
               type: "number",
               title: "Quantity Purchased",
-              validation: (Rule) => Rule.required().min(1),
             }),
           ],
         }),
