@@ -743,7 +743,7 @@
           "of": {
             "type": "object",
             "attributes": {
-              "productRef": {
+              "products": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "object",
@@ -773,7 +773,7 @@
                 },
                 "optional": true
               },
-              "quantityPurchased": {
+              "quantity": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "number"

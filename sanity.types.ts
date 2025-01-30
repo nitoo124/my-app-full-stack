@@ -127,13 +127,13 @@ export type Order = {
   customerName?: string;
   email?: string;
   product?: Array<{
-    productRef?: {
+    products?: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "products";
     };
-    quantityPurchased?: number;
+    quantity?: number;
     _key: string;
   }>;
   orderStatus?: "pending" | "paid" | "shipped" | "delivered" | "cancelled";

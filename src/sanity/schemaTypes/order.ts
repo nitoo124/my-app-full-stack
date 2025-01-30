@@ -41,26 +41,28 @@ export const order = defineType({
       name: "email",
       type: "string",
       title: "Customer Email",
-      validation: (Rule) => Rule.required().email(), // Added email validation
+      validation: (Rule) => Rule.required().email(),
     }),
     defineField({
-      name: "products",
-      type: "array",
+      name: "product", // Match the field name in the dataset
       title: "Products",
+      type: "array",
       of: [
         defineArrayMember({
           type: "object",
           fields: [
             defineField({
-              name: "product",
-              title: "Product Bought",
+              name: "products",
               type: "reference",
+              title: "Product Bought",
               to: [{ type: "products" }],
+              validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: "quantity",
               type: "number",
               title: "Quantity Purchased",
+              validation: (Rule) => Rule.required().min(1),
             }),
           ],
         }),
@@ -91,7 +93,7 @@ export const order = defineType({
       name: "totalPrice",
       type: "number",
       title: "Total Price",
-      validation: (Rule) => Rule.min(0),
+      validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
       name: "currency",
@@ -110,17 +112,17 @@ export const order = defineType({
     select: {
       name: "customerName",
       amount: "totalPrice",
-      currency:  "currency",
+      currency: "currency",
       orderId: "orderNumber",
-      email : "email" // Entire product array
+      email: "email",
     },
     prepare(select) {
-    const orderIdSnippet= `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`;
-    return{
-      title: `${select.name}(${orderIdSnippet})`,
-      subtitle: `${select.amount}${select.currency}, ${select.email}`,
-      media : BasketIcon
-    }
+      const orderIdSnippet = `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`;
+      return {
+        title: `${select.name} (${orderIdSnippet})`,
+        subtitle: `${select.amount} ${select.currency}, ${select.email}`,
+        media: BasketIcon,
+      };
     },
   },
 });
