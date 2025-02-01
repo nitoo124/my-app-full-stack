@@ -44,7 +44,7 @@ export const order = defineType({
       validation: (Rule) => Rule.required().email(),
     }),
     defineField({
-      name: "product", // Match the field name in the dataset
+      name: "product",
       title: "Products",
       type: "array",
       of: [
