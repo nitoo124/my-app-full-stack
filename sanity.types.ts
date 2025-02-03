@@ -268,6 +268,48 @@ export type Slug = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sale | BlockContent | Order | Category | Products | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/sanity/lib/orders/getMyOrders.tsx
+// Variable: MY_ORDERS_QUERY
+// Query: *[_type == "order" && clerkUserId == $userId] | order(orderDate desc) {      ...,      product[] {        ...,        products->{         _id,          name,          price,          image}      }    }
+export type MY_ORDERS_QUERYResult = Array<{
+  _id: string;
+  _type: "order";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  orderNumber?: string;
+  stripeCustomerId?: string;
+  stripePaymentIntentId?: string;
+  clerkUserId?: string;
+  customerName?: string;
+  email?: string;
+  product: Array<{
+    products: {
+      _id: string;
+      name: string | null;
+      price: number | null;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+    } | null;
+    quantity?: number;
+    _key: string;
+  }> | null;
+  orderStatus?: "cancelled" | "delivered" | "paid" | "pending" | "shipped";
+  orderDate?: string;
+  totalPrice?: number;
+  currency?: string;
+  amountDiscount?: number;
+}>;
+
 // Source: ./src/sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
 // Query: *[_type == "category"] | order(name asc)
@@ -512,6 +554,7 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      product[] {\n        ...,\n        products->{\n         _id,\n          name,\n          price,\n          image}\n      }\n    }\n  ": MY_ORDERS_QUERYResult;
     "\n       *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
     "\n     *[_type == \"products\"] | order(name asc)\n\n    ": ALL_PRODUCTS_QUERYResult;
     "\n        *[\n        _type == \"products\" && slug.current == $slug\n        ] | order(name asc)[0]\n        ": PRODUCT_BY_TO_QUERYResult;
