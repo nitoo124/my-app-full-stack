@@ -42,7 +42,7 @@ function ProductCard({ product }: { product: Products }) {
               : ''
           ).join(' ') || 'No description available'}
         </p>
-        <p className="mt-4 text-lg font-semibold text-green-600">PKR {product.price?.toFixed(2)}</p>
+        <p className="mt-4 text-lg font-semibold text-green-600">${product.price?.toFixed(2)}</p>
       </div>
     </Link>
   );
